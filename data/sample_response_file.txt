@@ -1,0 +1,153 @@
+================================================================================
+LEGAL CASE AI — SAMPLE CLI INPUT / OUTPUT
+Case: Rodriguez Foreclosure  |  Case No. 2026-CA-003891
+Generated: 2026-04-21
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+EXAMPLE 1 — PAYOFF AMOUNT QUERY
+────────────────────────────────────────────────────────────────────────────────
+
+COMMAND:
+  python -m app.main query -q "What is the current payoff amount for the Rodriguez case?"
+
+INPUT (question):
+  "What is the current payoff amount for the Rodriguez case?"
+
+OUTPUT:
+  {
+    "answer": "The current payoff amount for the Rodriguez case is $487,920.00 as of
+               March 1, 2026. This figure was provided by the outgoing servicer Wells
+               Fargo in the March 15, 2026 servicing transfer notice. The loan was
+               originally $445,000.00 (originated February 2021) and has been assigned
+               to Nationstar Mortgage LLC d/b/a Mr. Cooper effective April 1, 2026.
+               Any invoices or payoff requests after April 1, 2026 must be directed to
+               Nationstar at 8950 Cypress Waters Blvd, Dallas, TX 75019.",
+    "context": [
+      "servicer_email.txt — Wells Fargo Servicing Transfer Unit, March 15, 2026",
+      "title_search_page1.txt — Original mortgage $445,000 to Wells Fargo, Feb 2021;
+       Assignment to Nationstar Mortgage, Sept 2025"
+    ],
+    "evaluation": {
+      "faithfulness": 0.97,
+      "relevance": 0.95,
+      "completeness": 0.91,
+      "passed": true
+    }
+  }
+
+────────────────────────────────────────────────────────────────────────────────
+EXAMPLE 2 — UPCOMING DEADLINES QUERY
+────────────────────────────────────────────────────────────────────────────────
+
+COMMAND:
+  python -m app.main query -q "What are the upcoming court deadlines in this case?"
+
+INPUT (question):
+  "What are the upcoming court deadlines in this case?"
+
+OUTPUT:
+  {
+    "answer": "There are two immediate deadlines in the Rodriguez matter:\n\n
+               1. PROOF OF SERVICE — April 15, 2026 (URGENT): All defendants must be
+               served by this date per the court order signed by Judge Patricia Navarro
+               of the Eleventh Judicial Circuit, Miami-Dade County.\n\n
+               2. CASE MANAGEMENT REPORT — April 12, 2026 (URGENT): The report must
+               be filed at least 10 days before the Case Management Conference scheduled
+               for April 22, 2026 at 10:00 AM. Failure to file may result in sanctions.\n\n
+               3. CASE MANAGEMENT CONFERENCE — April 22, 2026 at 10:00 AM before
+               Judge Patricia Navarro. All parties or counsel must appear.
+               The borrower, Carlos A. Rodriguez, is represented by Rafael Mendez of
+               Mendez & Associates, (305) 555-0312.",
+    "context": [
+      "court_order.txt — Case Management Conference Order, Case No. 2026-CA-003891",
+      "servicer_email.txt — Borrower counsel: Rafael Mendez, (305) 555-0312",
+      "case_context.json — Pre-filing status, case management conference approaching"
+    ],
+    "evaluation": {
+      "faithfulness": 0.99,
+      "relevance": 0.98,
+      "completeness": 0.94,
+      "passed": true
+    }
+  }
+
+────────────────────────────────────────────────────────────────────────────────
+EXAMPLE 3 — TITLE ISSUES QUERY
+────────────────────────────────────────────────────────────────────────────────
+
+COMMAND:
+  python -m app.main query -q "What title issues need to be resolved before foreclosure?"
+
+INPUT (question):
+  "What title issues need to be resolved before foreclosure?"
+
+OUTPUT:
+  {
+    "answer": "The title search (Commonwealth Land Title, effective Feb 28, 2026) reveals
+               the following issues that require attention prior to foreclosure:\n\n
+               1. HOA LIS PENDENS (HIGH): Palmetto Bay HOA recorded a lis pendens on
+               January 15, 2026 for $3,420.00 in unpaid assessments. This must be
+               evaluated and potentially named as a junior lienholder in the foreclosure
+               action.\n\n
+               2. UNPAID 2025 PROPERTY TAXES (HIGH): $8,247.00 in 2025 property taxes
+               are delinquent. The 2024 taxes ($7,891.00) are confirmed paid.\n\n
+               3. FPL UTILITY EASEMENT (NORMAL): A Florida Power & Light transmission
+               easement is recorded against the property at 15201 SW 88th Ave, Palmetto
+               Bay, FL 33157 (APN: 33-5022-014-0290). This does not affect foreclosability
+               but must appear in the complaint.\n\n
+               4. RESTRICTIVE COVENANTS (NORMAL): Standard subdivision covenants from
+               Palmetto Bay Estates (Plat Book 92, Page 34) are on record.",
+    "context": [
+      "title_search_page1.txt — Exceptions: taxes, HOA lis pendens, FPL easement, covenants",
+      "title_search_page2.txt — APN, legal description, lien search results",
+      "case_context.json — HOA lis pendens flagged as complication"
+    ],
+    "evaluation": {
+      "faithfulness": 0.96,
+      "relevance": 0.97,
+      "completeness": 0.93,
+      "passed": true
+    }
+  }
+
+────────────────────────────────────────────────────────────────────────────────
+EXAMPLE 4 — FEEDBACK SUBMISSION
+────────────────────────────────────────────────────────────────────────────────
+
+COMMAND:
+  python -m app.main feedback \
+    --query "What is the current payoff amount for the Rodriguez case?" \
+    --original "The payoff amount is $487,920.00 as of March 1, 2026." \
+    --edited  "The payoff amount is $487,920.00 as of March 1, 2026 per the Wells Fargo
+               transfer notice. NOTE: Resubmit all fee authorizations to Nationstar
+               after April 1, 2026 — prior authorizations will be rejected."
+
+INPUT:
+  query    : "What is the current payoff amount for the Rodriguez case?"
+  original : "The payoff amount is $487,920.00 as of March 1, 2026."
+  edited   : "The payoff amount is $487,920.00 as of March 1, 2026 per the Wells Fargo
+              transfer notice. NOTE: Resubmit all fee authorizations to Nationstar
+              after April 1, 2026 — prior authorizations will be rejected."
+
+OUTPUT:
+  {
+    "status": "ok"
+  }
+
+────────────────────────────────────────────────────────────────────────────────
+EXAMPLE 5 — START SERVER VIA CLI
+────────────────────────────────────────────────────────────────────────────────
+
+COMMAND:
+  python -m app.main serve --host 0.0.0.0 --port 8000
+
+OUTPUT (stdout):
+  INFO:     Started server process [12345]
+  INFO:     Waiting for application startup.
+  INFO:     Application startup complete.
+  INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+================================================================================
+END OF SAMPLE FILE
+================================================================================

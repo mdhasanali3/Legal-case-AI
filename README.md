@@ -13,6 +13,8 @@
 
 ---
 
+**Sample query and responses saved to "./data/sample_response_file.txt"**
+
 ## ⚡ Quick Start
 
 ### 1. Clone
@@ -53,7 +55,16 @@ docker run -p 8000:8000 -e OPENAI_API_KEY=your_key legal-ai
 
 ---
 
-## 📊 Evaluation
+## 📊 Evaluation method applied
 - Grounding Score
 - Retrieval Recall
 - Hallucination Reduction
+
+
+## Evaluation Rubic covered
+- Document Processing — 25 points
+- Retrieval and Grounding — 25 points
+- Draft Quality — 10 points
+- Code Quality and System Design — 10 points
+- Documentation and Clarity — 5 points
+Skipped Improvement from Edits
